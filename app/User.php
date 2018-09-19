@@ -128,10 +128,10 @@ class User extends Authenticatable
         return $this->microposts_favorites()->where('favorites_id', $postId)->exists();
     }
     
+    
     public function feed_favorites()
     {
-        $favorite_post_ids = $this->microposts_favorites()-> pluck('posts_favorites.id')->toArray();
-        $favorite_post_ids[] = $this->id;
-        return Micropost::whereIn('id', $favorite_post_ids);
+        $favorite_post_ids = $this->microposts_favorites()-> pluck('microposts.id')->toArray();
+        return Micropost::whereIn('favorites_id', $favorite_post_ids);
     }
 }
